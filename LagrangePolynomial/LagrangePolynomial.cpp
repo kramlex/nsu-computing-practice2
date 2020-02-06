@@ -1,9 +1,11 @@
+//
+// Created by markd on 06.02.2020.
+//
+
 #include <iostream>
 #include <vector>
 #include <cmath>
 using namespace std;
-
-
 
 // Общее число операций n^2 + O(n)
 double LagrangePolynomial(double x, vector<double>& xv, vector<double>& yv) {
