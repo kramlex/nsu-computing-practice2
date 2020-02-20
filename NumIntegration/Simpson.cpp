@@ -9,8 +9,9 @@
 using namespace std;
 
 // Подинтегральная функция
+
 double func(double x) {
-    return exp(-0.1 / x);
+    return sqrt(1-x*x*x);
 }
 
 /*
@@ -37,11 +38,11 @@ int main() {
     double a; // Левая граница
     double b; // Правая граница
 
-    cout << "Enter the number of segments: ";
-    cin >> n;
     cout << "Enter the left and right border [a,b]: ";
     cin >> a >> b;
-
-    cout << endl  << "Integral f(x) from " << a << " to " << b << " = " << fixed << setprecision(8) << Simpson(a, b, n, func);
+    cout << endl;
+    cout << "n = 20   integral f(x) = " << fixed << setprecision(8) << Simpson(a,b,20,func) << endl;
+    cout << "n = 50   integral f(x) = " << fixed << setprecision(8) << Simpson(a,b,50,func) << endl;
+    cout << "n = 100   integral f(x) = " << fixed << setprecision(8) << Simpson(a,b,100,func) << endl;
     return 0;
 }
