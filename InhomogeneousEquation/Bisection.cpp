@@ -5,16 +5,15 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-#include <string>
 
 using namespace std;
-const double eps = 1e-8;
+const double eps = 1e-9;
 
 double func(double x) {
-    //...
+    return x*x - sin(x) - 1;
 }
 
-double FindRoot(double a, double b) {
+double FindRoot(double a, double b , double (*f)(double)) {
     while (b-a > eps) {
         if (f(a) * f((b + a) / 2) == 0) break;
         else if (f(a) * f((b + a) / 2) > 0)
@@ -26,17 +25,8 @@ double FindRoot(double a, double b) {
 }
 
 int main(){
-    string s;
-    double a, b, root;
-    while(true){
-        cout << "Your action: ";
-        cin >> s;
-        if(s == "Stop") break;
-        if(s == "Find"){
-            cout << "Enter the left and right border [a,b]: ";
-            cin >> a >> b;
-            cout << "Root in the range from " << a << " to " << b << " = " << FindRoot(a,b);
-        }
-    }
+    cout << fixed << setprecision(8);
+    cout << "root 1 = " << FindRoot(-2, 0, func) << endl;
+    cout << "root 2 = " << FindRoot(1, 2, func);
     return 0;
 }
