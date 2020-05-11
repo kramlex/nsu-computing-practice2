@@ -5,11 +5,12 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
 double func(double x) {
-    return exp(x);
+    return log10(x);
 }
 
 double LagrangePolynomial(double x, vector<double>& xv, vector<double>& yv) {
@@ -48,12 +49,13 @@ double Chebyshev(double n, double a, double b, double (*InterpolatePolynomial)(d
                 double (*InterpolateFunction)(double) , double x){
     vector<double> xC(n);
     vector<double> yC(n);
-
+    cout << endl;
     for(int i = 0; i < n; ++i){
         xC[i] = 0.5 * (a + b) + 0.5 * (b - a) * cos(M_PI * ((i+1) * 2 - 1) / (2 * n));
         yC[i] = InterpolateFunction(xC[i]);
+        cout << " (" <<xC[i] << ", " << yC[i] << ") ";
     }
-
+    cout << endl;
     return InterpolatePolynomial(x, xC, yC);
 
 }
@@ -75,7 +77,7 @@ int main() {
     cout << endl << "Enter the point x where you want to find the value of the Lagrange polynomial: ";
     cin >> x;
     double res = Chebyshev(n, a, b, NewtonPolynomial, func, x);
-    cout << endl << "Ch(x) = " << res << endl << " R(x) = f(x) - L(x) = " << exp(x) - res;
+    cout << endl << fixed << setprecision(8) << "Ch(x) = " << res << endl << " R(x) = f(x) - L(x) = " << log10(x) - res;
     return 0;
 
 }

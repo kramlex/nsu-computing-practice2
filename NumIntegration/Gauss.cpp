@@ -13,34 +13,40 @@ double func(double x) {
     return sqrt(1-x*x*x);
 }
 
-double GaussByTwoNodes(double a, double b, double n, double (*f)(double)){
-    const double width = (b-a)/n;
 
+double GaussByTwoNodes(double a, double b, double (*f)(double)){
+    vector<double> t = {-sqrt(1./3), sqrt(1./3)};
+    vector<double> h = {1 , 1};
+    int n = 2;
     double integral = 0;
-    for(int step = 0; step < n; ++step) {
-        double x1 = a + step*width;
-        double x2 = a + (step+1)*width;
-
-        integral += (x2-x1)/2 * ( f( (x1+x2)/2 - (x2-x1) / (2*sqrt(3.)) ) + f( (x1+x2)/2 + (x2-x1) / (2 * sqrt(3.)) ) );
-    }
+    for(int i = 0; i < n; ++i)
+        integral += h[i] * f((a+b)/2 + (b-a)/2 * t[i]);
+    integral *= (b-a)/2;
     return integral ;
 }
-double GaussByThreeNodes(double a, double b, double n, double (*f)(double)) {
-    const double width = (b-a)/n;
-
+double GaussByThreeNodes(double a, double b, double (*f)(double)) {
+    vector<double> t = {-sqrt(3./5), 0 , sqrt(3./5) };
+    vector<double> h = {5./9 , 8./9 , 5./9};
+    int n = 3;
     double integral = 0;
-    for(int step = 0; step < n; ++step) {
-        double x1 = a + step*width;
-        double x2 = a + (step+1)*width;
+    for(int i = 0; i < n; ++i)
+        integral += h[i] * f((a+b)/2 + (b-a)/2 * t[i]);
+    integral *= (b-a)/2;
+    return integral;
+}
 
-        integral += (x2 - x1) / 10 * ( 5./9 * f( (x1+x2)/2 - (x2-x1)/2 * sqrt(3./5) )  + 8.9 * f((x1+x2)/2) +
-                5./9 * f( (x1+x2)/2 - (x2 - x1)/2 * sqrt(3./5) ));
-    }
+double GaussByFiveNodes(double a, double b, double (*f)(double)) {
+    vector<double> t = {-0.9061798459 , -0.5384693101, 0 , 0.5384693101 , 0.9061798459};
+    vector<double> h = {0.2369268851, 0.4786286705, 0.5688888888, 0.4786286705, 0.2369268851};
+    int n = 5;
+    double integral = 0;
+    for(int i = 0; i < n; ++i)
+        integral += h[i] * f((a+b)/2 + (b-a)/2 * t[i]);
+    integral *= (b-a)/2;
     return integral;
 }
 
 int main(){
-    int n; // Кол-во отрезков дробления
     double a; // Левая граница
     double b; // Правая граница
 
@@ -49,13 +55,13 @@ int main(){
 
 
     cout << endl << "Gauss by Two Nodes :" << endl;
-    cout << endl << "n = 20  :  integral f(x) = " << fixed << setprecision(8) << GaussByTwoNodes(a,b,20,func) << endl;
-    cout << endl << "n = 50  :  integral f(x) = " << fixed << setprecision(8) << GaussByTwoNodes(a,b,50,func) << endl;
-    cout << endl << "n = 100  :  integral f(x) = " << fixed << setprecision(8) << GaussByTwoNodes(a,b,100,func) << endl;
+    cout << endl << "integral f(x) = " << fixed << setprecision(8) << GaussByTwoNodes(a,b,func) << endl;
 
     cout << endl << "Gauss by Three Nodes :" << endl;
-    cout << endl << "n = 20  :  integral f(x) = " << fixed << setprecision(8) << GaussByThreeNodes(a,b,20,func) << endl;
-    cout << endl << "n = 50  :  integral f(x) = " << fixed << setprecision(8) << GaussByThreeNodes(a,b,50,func) << endl;
-    cout << endl << "n = 100  :  integral f(x) = " << fixed << setprecision(8) << GaussByThreeNodes(a,b,10000,func) << endl;
+    cout << endl << "integral f(x) = " << fixed << setprecision(8) << GaussByThreeNodes(a,b,func) << endl;
+
+    cout << endl << "Gauss by Five Nodes :" << endl;
+    cout << endl << "integral f(x) = " << fixed << setprecision(8) << GaussByFiveNodes(a,b,func) << endl;
+
     return 0;
 }

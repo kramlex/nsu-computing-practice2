@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ int main(){
     cout << endl << "Enter the point x where you want to find the value of the Newton polynomial: ";
     cin >> x;
     double res = NewtonPolynomial(x, xv, yv);
-    cout << endl << "N(x) = " << res << endl << " R(x) = f(x) - L(x) = " << log10(x) - res;
+    cout << endl <<fixed << setprecision(8) << "N(x) = " << res << endl << " R(x) = f(x) - L(x) = " << log10(x) - res;
     return 0;
 
 

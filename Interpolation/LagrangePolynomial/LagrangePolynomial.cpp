@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <iomanip>
 using namespace std;
 
 // Общее число операций n^2 + O(n)
@@ -45,6 +46,6 @@ int main() {
     cout << endl << "Enter the point x where you want to find the value of the Lagrange polynomial: ";
     cin >> x;
     double res = LagrangePolynomial(x, xv, yv);
-    cout << endl << "L(x) = " << res << endl << " R(x) = f(x) - L(x) = " << exp(x) - res;
+    cout << endl << fixed << setprecision(8) << "L(x) = " << res << endl << " R(x) = f(x) - L(x) = " << exp(x) - res;
     return 0;
 }

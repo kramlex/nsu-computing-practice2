@@ -10,7 +10,7 @@ using namespace std;
 
 // Подинтегральная функция
 double func(double x) {
-    return exp(-0.1 / x);
+    return sqrt(1-x*x*x);
 }
 
 double AverageRectangle(double a, double b, double n, double (*f)(double)){
@@ -27,15 +27,14 @@ double AverageRectangle(double a, double b, double n, double (*f)(double)){
 }
 
 int main(){
-    int n; // Кол-во отрезков дробления
     double a; // Левая граница
     double b; // Правая граница
 
-    cout << "Enter the number of segments: ";
-    cin >> n;
     cout << "Enter the left and right border [a,b]: ";
     cin >> a >> b;
 
-    cout << endl  << "Integral f(x) from " << a << " to " << b << " = " << fixed << setprecision(8) << AverageRectangle(a, b, n, func);
+    cout << endl  << "n = 20 " << fixed << setprecision(8) << AverageRectangle(a, b, 20, func);
+    cout << endl  << "n = 50 " << fixed << setprecision(8) << AverageRectangle(a, b, 50, func);
+    cout << endl  << "n = 100 " << fixed << setprecision(8) << AverageRectangle(a, b, 100, func);
     return 0;
 }

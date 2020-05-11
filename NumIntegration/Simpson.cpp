@@ -34,7 +34,6 @@ double Simpson(double a, double b, double n, double (*f)(double)){
 }
 
 int main() {
-    int n; // Кол-во отрезков дробления
     double a; // Левая граница
     double b; // Правая граница
 
